@@ -2,9 +2,64 @@
   width: 340px;
   height: 420px;
   padding: 20px;
-  backdrop-filter: blur(4px) contrast(1.2);
+  backdrop-filter: blur(12px);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  color: black;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.locationDate {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.locationDate .right {
+  font-size: 0.85rem;
+}
+
+.locationDate .left {
+  display: flex;
+  gap: 6px;
+  justify-content: left;
+  align-items: center;
+}
+
+.condition {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.condition .right .temp {
+  font-size: 1.8rem;
+}
+
+.condition img {
+  width: 120px;
+  height: 120px;
+}
+
+.moreInfo {
+  margin-top: 20px;
+}
+
+.moreInfo,
+.moreInfo .humidity,
+.moreInfo .wind {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.moreInfo .humidity,
+.moreInfo .wind {
+  gap: 8px;
+}
+
+.moreInfo .value {
+  margin-top: 4px;
 }

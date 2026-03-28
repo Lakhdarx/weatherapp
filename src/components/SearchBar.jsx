@@ -12,7 +12,7 @@ export default function SearchBar() {
       <input
         className="searchInput"
         type="text"
-        placeholder="Search a city"
+        placeholder="Search city"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       ></input>
