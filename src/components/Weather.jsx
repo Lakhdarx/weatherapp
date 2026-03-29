@@ -1,24 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/Weather.css";
 import SearchBar from "./SearchBar";
-import { icons } from "../icons";
+import { icons, iconMap } from "../icons";
 // import clearIcon from "../assets/clear.svg";
 
 export default function Weather() {
-  const [weatherData, setWeatherData] = useState({
-    city: "Singapore",
-    temp: 30,
-    humidity: 74,
-    windSpeed: 4.12,
-    state: "Clouds",
-    icon: "clear",
-  });
-
-  const icon = icons.find((element) => {
-    if (element[1] === weatherData.icon) {
-      return element;
-    }
-  });
+  const [weatherData, setWeatherData] = useState(null);
 
   const today = new Date();
   const formattedDate = today.toLocaleDateString("en-US", {
@@ -27,7 +14,41 @@ export default function Weather() {
     month: "short",
   });
 
-  return (
+  useEffect(() => {
+    async function getDefaultCity() {
+      try {
+        const res = await fetch(
+          "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Algiers?key=BWZJAKN5J73RM7Q2CQLWBAKV3&include=current&elements=temp,humidity,windspeed,conditions,icon,feelslike&unitGroup=metric",
+        );
+        const text = await res.text();
+        let data;
+
+        try {
+          data = JSON.parse(text);
+        } catch {
+          data = text;
+        }
+
+        if (!res.ok) {
+          throw new Error(data || "Something went wrong.");
+        }
+
+        setWeatherData({
+          city: data.resolvedAddress,
+          temp: data.currentConditions.temp,
+          humidity: data.currentConditions.humidity,
+          windSpeed: data.currentConditions.windspeed,
+          state: data.currentConditions.conditions,
+          icon: iconMap[data.currentConditions.icon],
+        });
+      } catch (err) {
+        alert(err);
+      }
+    }
+    getDefaultCity();
+  }, []);
+
+  return weatherData ? (
     <div className="card">
       <SearchBar setWeather={setWeatherData} />
       <div className="weather-info">
@@ -40,7 +61,16 @@ export default function Weather() {
         </div>
 
         <div className="condition">
-          <img src={icon[0]} alt="x" />
+          <img
+            src={
+              icons.find((element) => {
+                if (element[1] === weatherData.icon) {
+                  return element;
+                }
+              })[0]
+            }
+            alt="x"
+          />
           <div className="right">
             <h4 className="temp">{weatherData.temp} °C</h4>
             <div className="state">{weatherData.state}</div>
@@ -65,5 +95,7 @@ export default function Weather() {
         </div>
       </div>
     </div>
+  ) : (
+    <h3>Loading</h3>
   );
 }
