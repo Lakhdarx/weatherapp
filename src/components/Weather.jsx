@@ -20,6 +20,13 @@ export default function Weather() {
     }
   });
 
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString("en-US", {
+    weekday: "short",
+    day: "2-digit",
+    month: "short",
+  });
+
   return (
     <div className="card">
       <SearchBar setWeather={setWeatherData} />
@@ -29,7 +36,7 @@ export default function Weather() {
             <span className="material-symbols-outlined">location_on</span>
             <h3 className="city">{weatherData.city}</h3>
           </div>
-          <div className="right">Wed, 07 Aug</div>
+          <div className="right">{formattedDate}</div>
         </div>
 
         <div className="condition">
