@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../styles/Weather.css";
 import SearchBar from "./SearchBar";
 import { icons } from "../icons";
-import clearIcon from "../assets/clear.svg";
+// import clearIcon from "../assets/clear.svg";
 
 export default function Weather() {
   const [weatherData, setWeatherData] = useState({
@@ -12,6 +12,12 @@ export default function Weather() {
     windSpeed: 4.12,
     state: "Clouds",
     icon: "clear",
+  });
+
+  const icon = icons.find((element) => {
+    if (element[1] === weatherData.icon) {
+      return element;
+    }
   });
 
   return (
@@ -27,7 +33,7 @@ export default function Weather() {
         </div>
 
         <div className="condition">
-          <img src={clearIcon} alt="x" />
+          <img src={icon[0]} alt="x" />
           <div className="right">
             <h4 className="temp">{weatherData.temp} °C</h4>
             <div className="state">{weatherData.state}</div>

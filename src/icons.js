@@ -7,13 +7,13 @@ import snow from "./assets/snow.svg";
 import thunderstorm from "./assets/thunderstorm.svg";
 
 export const icons = [
-  clear,
-  clouds,
-  lightrain,
-  partialclouds,
-  rain,
-  snow,
-  thunderstorm,
+  [clear, "clear"],
+  [clouds, "clouds"],
+  [lightrain, "lightrain"],
+  [partialclouds, "partialclouds"],
+  [rain, "rain"],
+  [snow, "snow"],
+  [thunderstorm, "thunderstorm"],
 ];
 
 export const iconMap = {
