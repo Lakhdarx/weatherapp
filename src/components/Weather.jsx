@@ -17,8 +17,9 @@ export default function Weather() {
   useEffect(() => {
     async function getDefaultCity() {
       try {
+        const savedCity = localStorage.getItem("lastCity") || "Algiers";
         const res = await fetch(
-          "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Algiers?key=BWZJAKN5J73RM7Q2CQLWBAKV3&include=current&elements=temp,humidity,windspeed,conditions,icon,feelslike&unitGroup=metric",
+          `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${savedCity}?key=BWZJAKN5J73RM7Q2CQLWBAKV3&include=current&elements=temp,humidity,windspeed,conditions,icon,feelslike&unitGroup=metric`,
         );
         const text = await res.text();
         let data;

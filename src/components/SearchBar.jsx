@@ -28,6 +28,8 @@ export default function SearchBar({ setWeather }) {
         throw new Error(data || "Something went wrong.");
       }
 
+      localStorage.setItem("lastCity", searchQuery);
+
       setWeather((prev) => ({
         ...prev,
         city: data.resolvedAddress,
